@@ -1,19 +1,35 @@
 package tests;
 
+import io.qameta.allure.Owner;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import tests.steps.ApiSteps;
+import tests.steps.WebSteps;
+
+import java.util.Map;
 
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.sleep;
-import static helpers.CookieHelper.setCookies;
-import static tests.steps.ApiSteps.loginViaApi;
-
+@Owner("f27")
 public class LoginTests extends TestBase{
-    @Test
-    void firstTest() {
-        open("/favicon.ico");
-        setCookies(loginViaApi(TestData.getUserEmail(), TestData.getUserPassword()));
-        open();
 
+    @Test
+    @Tag("API")
+    void loginOnlyApiTest() {
+        Map<String,String> cookies = ApiSteps.login(TestData.getUserEmail(), TestData.getUserPassword());
+        ApiSteps.verifyLogin(TestData.getUserEmail(), cookies);
+    }
+
+    @Test
+    @Tag("MIXED")
+    void mixedLoginTest() {
+        WebSteps.setCookies(ApiSteps.login(TestData.getUserEmail(), TestData.getUserPassword()));
+        WebSteps.verifyLogin(TestData.getUserEmail());
+    }
+
+    @Test
+    @Tag("UI")
+    void uiLoginTest() {
+        WebSteps.login(TestData.getUserEmail(), TestData.getUserPassword());
+        WebSteps.verifyLogin(TestData.getUserEmail());
     }
 }

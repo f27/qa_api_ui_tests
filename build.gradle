@@ -27,6 +27,7 @@ dependencies {
     testImplementation(
             "org.aspectj:aspectjweaver:1.9.6",
             "org.aeonbits.owner:owner:1.0.12",
+            "org.assertj:assertj-core:3.19.0",
             "com.codeborne:selenide:$selenideVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.qameta.allure:allure-selenide:$allureVersion",
@@ -43,6 +44,24 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     systemProperties(System.getProperties())
+}
+
+task API_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'API'
+    }
+}
+
+task ui_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'UI'
+    }
+}
+
+task mixed_tests(type: Test) {
+    useJUnitPlatform {
+        includeTags 'MIXED'
+    }
 }
 
 test {

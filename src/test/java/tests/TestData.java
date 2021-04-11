@@ -1,6 +1,5 @@
 package tests;
 
-import config.DriverConfig;
 import config.TestDataConfig;
 import org.aeonbits.owner.ConfigFactory;
 
