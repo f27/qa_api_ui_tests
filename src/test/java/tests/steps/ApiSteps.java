@@ -9,6 +9,7 @@ import static endpoints.ApiEndpoints.MAIN;
 import static api.LogFilter.filters;
 import static api.spec.RequestSpec.spec;
 import static api.spec.RequestSpec.authorizedSpec;
+import static api.elements.ApiElements.getEmailFromMain;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -51,7 +52,7 @@ public class ApiSteps {
 
     @Step("(API) Verify that page {page} has text {text}")
     private static void pageHasText(String page, String text) {
-        assertThat(getPage(page)).contains(text);
+        assertThat(getEmailFromMain(getPage(page))).isEqualTo(text);
     }
 
     @Step("(API) Verify that logged in successfully")

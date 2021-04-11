@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 import tests.steps.ApiSteps;
 import tests.steps.WebSteps;
 
-import java.util.Map;
-
-
 @Owner("f27")
 public class LoginTests extends TestBase{
 
