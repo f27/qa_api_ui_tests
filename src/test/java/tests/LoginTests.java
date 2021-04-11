@@ -15,8 +15,8 @@ public class LoginTests extends TestBase{
     @Test
     @Tag("API")
     void loginOnlyApiTest() {
-        Map<String,String> cookies = ApiSteps.login(TestData.getUserEmail(), TestData.getUserPassword());
-        ApiSteps.verifyLogin(TestData.getUserEmail(), cookies);
+        ApiSteps.login(TestData.getUserEmail(), TestData.getUserPassword());
+        ApiSteps.verifyLogin(TestData.getUserEmail());
     }
 
     @Test
