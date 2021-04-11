@@ -9,7 +9,7 @@ import static endpoints.ApiEndpoints.MAIN;
 import static api.LogFilter.filters;
 import static api.spec.RequestSpec.spec;
 import static api.spec.RequestSpec.authorizedSpec;
-import static api.elements.ApiElements.getEmailFromMain;
+import static api.matchers.ApiMatchers.getEmailFromMain;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
