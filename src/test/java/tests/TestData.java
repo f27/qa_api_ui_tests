@@ -15,8 +15,8 @@ public class TestData {
         return testDataConfig.apiUrl();
     }
 
-    public static String getUserLogin() {
-        return testDataConfig.userLogin();
+    public static String getUserEmail() {
+        return testDataConfig.userEmail();
     }
 
     public static String getUserPassword() {
