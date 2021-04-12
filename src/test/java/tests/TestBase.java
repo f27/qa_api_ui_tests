@@ -16,10 +16,10 @@ public class TestBase {
     static Map<String, String> authCookies;
 
     @BeforeAll
-    static void setup(TestInfo info) {
+    static void setup() {
         RestAssured.baseURI = TestData.getApiUrl();
-        authCookies = new Auth().login(TestData.getUserEmail(), TestData.getUserPassword());
         configureDriver();
+        authCookies = new Auth().login(TestData.getUserEmail(), TestData.getUserPassword());
     }
 
     @AfterEach
