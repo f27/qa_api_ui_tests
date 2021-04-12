@@ -8,7 +8,8 @@ public class RequestSpec {
     public static RequestSpecification spec = RestAssured
             .given()
             .log().uri()
-            .contentType(ContentType.URLENC);
+            .contentType("application/x-www-form-urlencoded; charset=UTF-8");
+            //.contentType(ContentType.URLENC);
 
     public static RequestSpecification authorizedSpec = RestAssured
             .given(spec);
