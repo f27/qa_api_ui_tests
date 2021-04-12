@@ -30,7 +30,7 @@ public class LoginTests extends TestBase{
     @Tag("UI")
     @DisplayName("Login via UI, verify login")
     void uiLoginTest() {
-        WebSteps.login(TestData.getUserEmail(), TestData.getUserPassword());
+        WebSteps.login(TestData.getUserEmail(), TestData.getUserPassword(), true);
         WebSteps.verifyLogin(TestData.getUserEmail());
     }
 }
