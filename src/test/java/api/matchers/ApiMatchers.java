@@ -1,8 +1,6 @@
 package api.matchers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +8,7 @@ import java.util.regex.Pattern;
 public class ApiMatchers {
     private static final String myEmailOnMainPattern = "<a href=\"/customer/info\" class=\"account\">(\\w+@\\w+.\\w+)</a>";
     private static final String itemsInfoInCart =
-            "product-name\">(.+)</a>\\s+</td>\\s+<td class=\"unit-price nobr\">\\s+<span class=\"td-title\">" +
+            "product-name\">(.+)</a>[\\s\\S]+?</td>\\s+<td class=\"unit-price nobr\">\\s+<span class=\"td-title\">" +
                     "Price:</span>\\s+<span class=\"product-unit-price\">(.+)</span>\\s+</td>\\s+<td class=" +
                     "\"qty nobr\">\\s+<span class=\"td-title\">Qty.:</span>\\s+<input name=\"itemquantity(\\d+)\"" +
                     " type=\"text\" value=\"(\\d+)\" class=\"qty-input\" />";
