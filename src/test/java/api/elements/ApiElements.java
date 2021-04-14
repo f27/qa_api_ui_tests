@@ -5,8 +5,6 @@ import org.jsoup.select.Elements;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ApiElements {
     private static final String myEmailSelector = "div.header-links ul li a.account";
