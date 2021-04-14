@@ -2,6 +2,7 @@ package tests.steps;
 
 import api.elements.CartElements;
 import api.elements.MainElements;
+import api.elements.SearchResultsElements;
 import io.qameta.allure.Step;
 
 import java.util.ArrayList;
@@ -21,6 +22,19 @@ public class ApiSteps {
     private static String getPage(String page) {
         return given(authorizedSpec)
                 .filter(filters().withCustomTemplates())
+                .when()
+                .get(page)
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().asString();
+    }
+
+    @Step("(API) Get page {page} with params {params}")
+    private static String getPage(String page, Map<String, String> params) {
+        return given(authorizedSpec)
+                .filter(filters().withCustomTemplates())
+                .queryParams(params)
                 .when()
                 .get(page)
                 .then()
@@ -121,10 +135,20 @@ public class ApiSteps {
     public static void addToCartWithDetails(String itemId, Map<String, String> details, String qty) {
         Map<String, String> postData = new HashMap<>();
         details.forEach((detailName, detailValue) ->
-                postData.put("product_attribute_"+itemId+"_"+detailName, detailValue)
+                postData.put("product_attribute_" + itemId + "_" + detailName, detailValue)
         );
         postData.put("addtocart_" + itemId + ".EnteredQuantity", qty);
         postDataToPage(ADD_TO_CART.addPath("/details/" + itemId + "/1"), postData);
+    }
+
+    @Step("(API) Search '{searchText}' and verify that results has '{itemName}'")
+    public static void searchAndCheck(String searchText, String itemName) {
+        Map<String,String> searchQuery = new HashMap<String,String>(){{
+            put("q", searchText);
+        }};
+        Map<String, Map<String,String>> searchResults = SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchQuery));
+
+        assertThat(searchResults.keySet()).contains(itemName);
     }
 
 }

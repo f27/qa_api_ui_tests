@@ -1,7 +1,12 @@
 package endpoints;
 
 public enum ApiEndpoints {
-    LOGIN("/login"), MAIN("/"), CART("/cart"), ADD_TO_CART("/addproducttocart");
+    LOGIN("/login"),
+    MAIN("/"),
+    CART("/cart"),
+    ADD_TO_CART("/addproducttocart"),
+    SEARCH("/search");
+
     String path;
 
     ApiEndpoints(String path) {

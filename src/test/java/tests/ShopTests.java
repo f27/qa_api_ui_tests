@@ -11,7 +11,7 @@ public class ShopTests extends TestBase {
     @Test
     @Tag("API")
     @DisplayName("Add to cart from catalog via API")
-    void addSimpleItemToCart() {
+    void addSimpleItemToCartTest() {
         String qtyToAdd = TestData.getSimpleItemQuantity();
         ApiSteps.addToCartFromCatalog(TestData.getSimpleItemId(), qtyToAdd);
         ApiSteps.verifyAddToCart(TestData.getSimpleItemName(), qtyToAdd);
@@ -20,7 +20,7 @@ public class ShopTests extends TestBase {
     @Test
     @Tag("API")
     @DisplayName("Add to cart with details via API")
-    void addWithDetailsItemToCart() {
+    void addWithDetailsItemToCartTest() {
         String qtyToAdd = TestData.getWithDetailsItemQuantity();
         ApiSteps.addToCartWithDetails(
                 TestData.getWithDetailsItemId(),
