@@ -21,10 +21,6 @@ public class TestBase {
         RestAssured.baseURI = TestData.getApiUrl();
         configureDriver();
         authCookies = new Auth().login(TestData.getUserEmail(), TestData.getUserPassword());
-    }
-
-    @BeforeAll
-    static void cleanCart() {
         ApiSteps.removeAllItemsInCart();
     }
 
