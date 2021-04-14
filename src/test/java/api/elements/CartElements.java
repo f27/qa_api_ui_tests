@@ -6,18 +6,12 @@ import org.jsoup.select.Elements;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApiElements {
-    private static final String myEmailSelector = "div.header-links ul li a.account";
+public class CartElements {
     private static final String itemFullInfoSelector = ".cart-item-row";
     private static final String itemIdSelector = "[name=removefromcart]";
     private static final String itemNameSelector = ".product-name";
     private static final String itemPriceSelector = ".product-unit-price";
     private static final String itemQtySelector = ".qty-input";
-
-    public static String getEmail(String pageText) {
-        return Jsoup.parse(pageText).select(myEmailSelector).text();
-    }
-
     public static Map<String, Map<String, String>> getItemsInfoFromCart(String pageText) {
         Map<String, Map<String, String>> allItemsInfo = new HashMap<>();
         Elements itemsFullInfo = Jsoup.parse(pageText).select(itemFullInfoSelector);

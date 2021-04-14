@@ -1,5 +1,7 @@
 package tests.steps;
 
+import api.elements.CartElements;
+import api.elements.MainElements;
 import io.qameta.allure.Step;
 
 import java.util.ArrayList;
@@ -8,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import static api.LogFilter.filters;
-import static api.elements.ApiElements.*;
 import static api.spec.RequestSpec.authorizedSpec;
 import static endpoints.ApiEndpoints.*;
 import static io.restassured.RestAssured.given;
@@ -70,7 +71,7 @@ public class ApiSteps {
 
     @Step("(API) Verify that email on {page} is equal to {email}")
     private static void pageHasEmail(String page, String email) {
-        assertThat(getEmail(getPage(page))).isEqualTo(email);
+        assertThat(MainElements.getEmail(getPage(page))).isEqualTo(email);
     }
 
     @Step("(API) Verify that logged in successfully")
@@ -81,7 +82,7 @@ public class ApiSteps {
     @Step("(API) Clear cart")
     public static void removeAllItemsInCart() {
         List<String> itemsInCart = new ArrayList<>();
-        getItemsInfoFromCart(getPage(CART.getPath())).forEach((itemName, itemInfo) ->
+        CartElements.getItemsInfoFromCart(getPage(CART.getPath())).forEach((itemName, itemInfo) ->
                 itemsInCart.add(itemInfo.get("id"))
         );
 
@@ -104,7 +105,7 @@ public class ApiSteps {
 
     @Step("(API) Verify that item added to cart and remove from cart")
     public static void verifyAddToCart(String itemName, String qty) {
-        Map<String, Map<String, String>> itemsInCart = getItemsInfoFromCart(getPage(CART.getPath()));
+        Map<String, Map<String, String>> itemsInCart = CartElements.getItemsInfoFromCart(getPage(CART.getPath()));
         assertThat(itemsInCart.keySet()).contains(itemName);
         assertThat(itemsInCart.get(itemName).get("qty")).isEqualTo(qty);
 
@@ -122,7 +123,7 @@ public class ApiSteps {
         details.forEach((detailName, detailValue) ->
                 postData.put("product_attribute_"+itemId+"_"+detailName, detailValue)
         );
-        postData.put("addtocart_"+itemId+".EnteredQuantity", qty);
+        postData.put("addtocart_" + itemId + ".EnteredQuantity", qty);
         postDataToPage(ADD_TO_CART.addPath("/details/" + itemId + "/1"), postData);
     }
 
