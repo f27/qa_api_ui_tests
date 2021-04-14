@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class WebSteps {
 
     @Step("(UI) Set cookies")
-    public static void setCookies(Map<String,String> cookiesMap) {
+    public static void setCookies(Map<String, String> cookiesMap) {
         open(FAVICON.getPath());
         cookiesMap.forEach((k, v) -> getWebDriver().manage().addCookie(new Cookie(k, v)));
     }

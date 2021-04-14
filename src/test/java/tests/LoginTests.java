@@ -19,6 +19,13 @@ public class LoginTests extends TestBase{
     }
 
     @Test
+    @Tag("API")
+    @DisplayName("Clear cart via API")
+    void clearCartTest() {
+        ApiSteps.removeAllItemsInCart();
+    }
+
+    @Test
     @Tag("MIXED")
     @DisplayName("Verify login via UI")
     void mixedLoginTest() {
