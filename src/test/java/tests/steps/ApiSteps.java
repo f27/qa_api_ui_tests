@@ -141,14 +141,19 @@ public class ApiSteps {
         postDataToPage(ADD_TO_CART.addPath("/details/" + itemId + "/1"), postData);
     }
 
-    @Step("(API) Search '{searchText}' and verify that results has '{itemName}'")
-    public static void searchAndCheck(String searchText, String itemName) {
+    @Step("(API) Search '{searchText}'")
+    public static Map<String, Map<String,String>> search(String searchText) {
         Map<String,String> searchQuery = new HashMap<String,String>(){{
             put("q", searchText);
         }};
-        Map<String, Map<String,String>> searchResults = SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchQuery));
 
-        assertThat(searchResults.keySet()).contains(itemName);
+        return SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchQuery));
+    }
+
+    @Step("(API) Search '{searchText}' in computers and verify that results is empty")
+    public static Map<String, Map<String,String>> advancedSearch(Map<String,String> searchParams) {
+
+        return SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchParams));
     }
 
 }
