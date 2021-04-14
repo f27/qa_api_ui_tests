@@ -21,4 +21,16 @@ public class TestData {
     public static String getUserPassword() {
         return testDataConfig.userPassword();
     }
+
+    public static String getSimpleItemId() {
+        return testDataConfig.simpleItemId();
+    }
+
+    public static String getSimpleItemName() {
+        return testDataConfig.simpleItemName();
+    }
+
+    public static String getSimpleItemQuantity() {
+        return testDataConfig.simpleItemQuantity();
+    }
 }

@@ -7,12 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static api.matchers.ApiMatchers.getItemsFromCart;
-import static endpoints.ApiEndpoints.CART;
-import static endpoints.ApiEndpoints.MAIN;
 import static api.LogFilter.filters;
+import static api.matchers.ApiMatchers.*;
 import static api.spec.RequestSpec.authorizedSpec;
-import static api.matchers.ApiMatchers.getEmail;
+import static endpoints.ApiEndpoints.*;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,19 +56,37 @@ public class ApiSteps {
                 .body().asString();
     }
 
-    @Step("(API) Verify that page {page} has text {text}")
-    private static void pageHasText(String page, String text) {
-        assertThat(getEmail(getPage(page))).isEqualTo(text);
+    @Step("(API) Post to page {page}")
+    private static String postPage(String page) {
+        return given(authorizedSpec)
+                .filter(filters().withCustomTemplates())
+                .when()
+                .post(page)
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().asString();
+    }
+
+    @Step("(API) Verify that email on {page} is equal to {email}")
+    private static void pageHasEmail(String page, String email) {
+        assertThat(getEmail(getPage(page))).isEqualTo(email);
     }
 
     @Step("(API) Verify that logged in successfully")
     public static void verifyLogin(String email) {
-        pageHasText(MAIN.getPath(), email);
+        pageHasEmail(MAIN.getPath(), email);
     }
 
     @Step("(API) Clear cart")
     public static void removeAllItemsInCart() {
-        List<String> itemsInCart = getItemsFromCart(getPage(CART.getPath()));
+        List<String> itemsInCart = new ArrayList<>();
+        getItemsInfoFromCart(getPage(CART.getPath())).forEach((itemName, itemInfo) ->
+                itemsInCart.add(itemInfo.get("id"))
+        );
+
+        if (itemsInCart.isEmpty()) return;
+
         List<String> updateCartString = new ArrayList<>();
         updateCartString.add("Update shopping cart");
         Map<String, List<String>> postData = new HashMap<String, List<String>>() {{
@@ -79,6 +95,18 @@ public class ApiSteps {
         }};
 
         postDataToPage(CART.getPath(), postData, true);
+    }
+
+    @Step("(API) Add product to cart from catalog")
+    public static void addToCartFromCatalog(String itemId, String qty) {
+        postPage(ADD_TO_CART.addPath("/catalog/" + itemId + "/1/" + qty));
+    }
+
+    @Step("(API) Verify that item added to cart")
+    public static void verifyAddToCart(String itemName, String qty) {
+        Map<String, Map<String, String>> itemsInCart = getItemsInfoFromCart(getPage(CART.getPath()));
+        assertThat(itemsInCart.keySet()).contains(itemName);
+        assertThat(itemsInCart.get(itemName).get("qty")).isEqualTo(qty);
     }
 
 }

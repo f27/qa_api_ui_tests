@@ -21,4 +21,13 @@ public interface TestDataConfig extends Config {
 
     @Key("user.password")
     String userPassword();
+
+    @Key("items.simple.id")
+    String simpleItemId();
+
+    @Key("items.simple.name")
+    String simpleItemName();
+
+    @Key("items.simple.quantity")
+    String simpleItemQuantity();
 }
