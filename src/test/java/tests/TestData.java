@@ -3,6 +3,9 @@ package tests;
 import config.TestDataConfig;
 import org.aeonbits.owner.ConfigFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TestData {
     private static final TestDataConfig testDataConfig = ConfigFactory.create(TestDataConfig.class, System.getProperties());
 
@@ -32,5 +35,27 @@ public class TestData {
 
     public static String getSimpleItemQuantity() {
         return testDataConfig.simpleItemQuantity();
+    }
+
+    public static String getWithDetailsItemId() {
+        return testDataConfig.withDetailsItemId();
+    }
+
+    public static String getWithDetailsItemName() {
+        return testDataConfig.withDetailsItemName();
+    }
+
+    public static String getWithDetailsItemQuantity() {
+        return testDataConfig.withDetailsItemQuantity();
+    }
+
+    public static Map<String, String> getWithDetailsItemDetails() {
+        Map<String, String> details = new HashMap<>();
+        String[] detailsData = testDataConfig.withDetailsItemDetails();
+        for (String detailData :detailsData) {
+            String[] keyValue = detailData.split(":");
+            details.put(keyValue[0], keyValue[1]);
+        }
+        return details;
     }
 }

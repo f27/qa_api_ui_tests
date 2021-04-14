@@ -30,4 +30,16 @@ public interface TestDataConfig extends Config {
 
     @Key("items.simple.quantity")
     String simpleItemQuantity();
+
+    @Key("items.withDetails.id")
+    String withDetailsItemId();
+
+    @Key("items.withDetails.name")
+    String withDetailsItemName();
+
+    @Key("items.withDetails.quantity")
+    String withDetailsItemQuantity();
+
+    @Key("items.withDetails.details")
+    String[] withDetailsItemDetails();
 }

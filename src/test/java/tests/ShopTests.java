@@ -23,4 +23,17 @@ public class ShopTests extends TestBase{
         ApiSteps.addToCartFromCatalog(TestData.getSimpleItemId(), qtyToAdd);
         verifyAddToCart(TestData.getSimpleItemName(), qtyToAdd);
     }
+
+    @Test
+    @Tag("API")
+    @DisplayName("Add to cart with details via API")
+    void addWithDetailsItemToCart() {
+        String qtyToAdd = TestData.getWithDetailsItemQuantity();
+        ApiSteps.addToCartWithDetails(
+                TestData.getWithDetailsItemId(),
+                TestData.getWithDetailsItemDetails(),
+                qtyToAdd);
+
+        verifyAddToCart(TestData.getWithDetailsItemName(), qtyToAdd);
+    }
 }

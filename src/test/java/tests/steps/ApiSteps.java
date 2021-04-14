@@ -109,4 +109,14 @@ public class ApiSteps {
         assertThat(itemsInCart.get(itemName).get("qty")).isEqualTo(qty);
     }
 
+    @Step("(API) Add product to cart with details")
+    public static void addToCartWithDetails(String itemId, Map<String, String> details, String qty) {
+        Map<String, String> postData = new HashMap<>();
+        details.forEach((detailName, detailValue) ->
+                postData.put("product_attribute_"+itemId+"_"+detailName, detailValue)
+        );
+        postData.put("addtocart_"+itemId+".EnteredQuantity", qty);
+        postDataToPage(ADD_TO_CART.addPath("/details/" + itemId + "/1"), postData);
+    }
+
 }
