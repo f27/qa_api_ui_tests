@@ -27,6 +27,7 @@ dependencies {
     testImplementation(
             "org.aspectj:aspectjweaver:1.9.6",
             "org.aeonbits.owner:owner:1.0.12",
+            "org.jsoup:jsoup:1.13.1",
             "org.assertj:assertj-core:3.19.0",
             "com.codeborne:selenide:$selenideVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",

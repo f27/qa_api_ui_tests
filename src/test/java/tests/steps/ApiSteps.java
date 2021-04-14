@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import static api.LogFilter.filters;
-import static api.matchers.ApiMatchers.*;
+import static api.elements.ApiElements.*;
 import static api.spec.RequestSpec.authorizedSpec;
 import static endpoints.ApiEndpoints.*;
 import static io.restassured.RestAssured.given;
