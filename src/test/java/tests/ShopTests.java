@@ -4,11 +4,9 @@ import io.qameta.allure.Owner;
 import org.junit.jupiter.api.*;
 import tests.steps.ApiSteps;
 
-import static tests.steps.ApiSteps.verifyAddToCart;
-
 @Owner("f27")
 @DisplayName("Shop tests")
-public class ShopTests extends TestBase{
+public class ShopTests extends TestBase {
 
     @Test
     @Tag("API")
@@ -16,7 +14,7 @@ public class ShopTests extends TestBase{
     void addSimpleItemToCart() {
         String qtyToAdd = TestData.getSimpleItemQuantity();
         ApiSteps.addToCartFromCatalog(TestData.getSimpleItemId(), qtyToAdd);
-        verifyAddToCart(TestData.getSimpleItemName(), qtyToAdd);
+        ApiSteps.verifyAddToCart(TestData.getSimpleItemName(), qtyToAdd);
     }
 
     @Test
@@ -29,6 +27,6 @@ public class ShopTests extends TestBase{
                 TestData.getWithDetailsItemDetails(),
                 qtyToAdd);
 
-        verifyAddToCart(TestData.getWithDetailsItemName(), qtyToAdd);
+        ApiSteps.verifyAddToCart(TestData.getWithDetailsItemName(), qtyToAdd);
     }
 }
