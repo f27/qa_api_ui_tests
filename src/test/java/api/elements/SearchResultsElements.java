@@ -23,8 +23,6 @@ public class SearchResultsElements {
             allItemsInfo.put(itemFullInfo.select(itemNameSelector).text(), itemsInfo);
         });
 
-        System.out.println(allItemsInfo);
-
         return allItemsInfo;
     }
 }
