@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInfo;
+import tests.steps.ApiSteps;
 
 import java.util.Map;
 
@@ -20,6 +21,11 @@ public class TestBase {
         RestAssured.baseURI = TestData.getApiUrl();
         configureDriver();
         authCookies = new Auth().login(TestData.getUserEmail(), TestData.getUserPassword());
+    }
+
+    @BeforeAll
+    static void cleanCart() {
+        ApiSteps.removeAllItemsInCart();
     }
 
     @AfterEach

@@ -10,11 +10,6 @@ import static tests.steps.ApiSteps.verifyAddToCart;
 @DisplayName("Shop tests")
 public class ShopTests extends TestBase{
 
-    @BeforeEach
-    void clearCart() {
-        ApiSteps.removeAllItemsInCart();
-    }
-
     @Test
     @Tag("API")
     @DisplayName("Add to cart from catalog via API")
