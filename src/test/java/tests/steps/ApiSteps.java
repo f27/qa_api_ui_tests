@@ -102,11 +102,18 @@ public class ApiSteps {
         postPage(ADD_TO_CART.addPath("/catalog/" + itemId + "/1/" + qty));
     }
 
-    @Step("(API) Verify that item added to cart")
+    @Step("(API) Verify that item added to cart and remove from cart")
     public static void verifyAddToCart(String itemName, String qty) {
         Map<String, Map<String, String>> itemsInCart = getItemsInfoFromCart(getPage(CART.getPath()));
         assertThat(itemsInCart.keySet()).contains(itemName);
         assertThat(itemsInCart.get(itemName).get("qty")).isEqualTo(qty);
+
+        Map<String, String> postData = new HashMap<String, String>() {{
+            put("removefromcart", itemsInCart.get(itemName).get("id"));
+            put("updatecart", "Update shopping cart");
+        }};
+
+        postDataToPage(CART.getPath(), postData);
     }
 
     @Step("(API) Add product to cart with details")
