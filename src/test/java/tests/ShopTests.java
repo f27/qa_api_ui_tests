@@ -19,11 +19,12 @@ public class ShopTests extends TestBase {
 
     @Test
     @Tag("API")
-    @DisplayName("Add to cart with details via API")
+    @DisplayName("Find and add to cart item with details via API")
     void addWithDetailsItemToCartTest() {
         String qtyToAdd = TestData.getWithDetailsItemQuantity();
         ApiSteps.addToCartWithDetails(
                 TestData.getWithDetailsItemId(),
+                TestData.getWithDetailsItemName(),
                 TestData.getWithDetailsItemDetails(),
                 qtyToAdd);
 

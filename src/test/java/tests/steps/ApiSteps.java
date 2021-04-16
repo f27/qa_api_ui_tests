@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static api.LogFilter.filters;
+import static api.elements.ItemPageElements.getDetails;
 import static api.spec.RequestSpec.authorizedSpec;
 import static endpoints.ApiEndpoints.*;
 import static io.restassured.RestAssured.given;
@@ -132,10 +133,12 @@ public class ApiSteps {
     }
 
     @Step("(API) Add product to cart with details")
-    public static void addToCartWithDetails(String itemId, Map<String, String> details, String qty) {
+    public static void addToCartWithDetails(String itemId, String itemName, List<String> details, String qty) {
+        Map<String, Map<String,String>> searchResults = search(itemName);
+        Map<String, Map<String,String>> allDetails = getDetails(getPage(searchResults.get(itemName).get("href")));
         Map<String, String> postData = new HashMap<>();
-        details.forEach((detailName, detailValue) ->
-                postData.put("product_attribute_" + itemId + "_" + detailName, detailValue)
+        details.forEach((detailName) ->
+                postData.put(allDetails.get(detailName).get("attribute"), allDetails.get(detailName).get("value"))
         );
         postData.put("addtocart_" + itemId + ".EnteredQuantity", qty);
         postDataToPage(ADD_TO_CART.addPath("/details/" + itemId + "/1"), postData);
@@ -150,7 +153,7 @@ public class ApiSteps {
         return SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchQuery));
     }
 
-    @Step("(API) Search '{searchText}' in computers and verify that results is empty")
+    @Step("(API) Advanced search with params '{searchParams}'")
     public static Map<String, Map<String,String>> advancedSearch(Map<String,String> searchParams) {
 
         return SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchParams));

@@ -3,8 +3,7 @@ package tests;
 import config.TestDataConfig;
 import org.aeonbits.owner.ConfigFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TestData {
     private static final TestDataConfig testDataConfig = ConfigFactory.create(TestDataConfig.class, System.getProperties());
@@ -49,13 +48,8 @@ public class TestData {
         return testDataConfig.withDetailsItemQuantity();
     }
 
-    public static Map<String, String> getWithDetailsItemDetails() {
-        Map<String, String> details = new HashMap<>();
+    public static List<String> getWithDetailsItemDetails() {
         String[] detailsData = testDataConfig.withDetailsItemDetails();
-        for (String detailData :detailsData) {
-            String[] keyValue = detailData.split(":");
-            details.put(keyValue[0], keyValue[1]);
-        }
-        return details;
+        return Arrays.asList(detailsData);
     }
 }
