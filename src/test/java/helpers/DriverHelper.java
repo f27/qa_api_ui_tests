@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import config.DriverConfig;
 import io.qameta.allure.selenide.AllureSelenide;
+import io.qameta.allure.selenide.LogType;
 import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -12,6 +13,7 @@ import tests.TestData;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
@@ -56,7 +58,7 @@ public class DriverHelper {
     }
 
     public static void configureDriver() {
-        addListener("AllureSelenide", new AllureSelenide());
+        addListener("AllureSelenide", new AllureSelenide().enableLogs(LogType.BROWSER, Level.ALL));
 
         Configuration.browser = driverConfig.webBrowser();
         Configuration.browserVersion = driverConfig.webBrowserVersion();
