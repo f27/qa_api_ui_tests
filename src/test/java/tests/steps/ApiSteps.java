@@ -134,8 +134,8 @@ public class ApiSteps {
 
     @Step("(API) Add product to cart with details")
     public static void addToCartWithDetails(String itemId, String itemName, List<String> details, String qty) {
-        Map<String, Map<String,String>> searchResults = search(itemName);
-        Map<String, Map<String,String>> allDetails = getDetails(getPage(searchResults.get(itemName).get("href")));
+        Map<String, Map<String, String>> searchResults = search(itemName);
+        Map<String, Map<String, String>> allDetails = getDetails(getPage(searchResults.get(itemName).get("href")));
         Map<String, String> postData = new HashMap<>();
         details.forEach((detailName) ->
                 postData.put(allDetails.get(detailName).get("attribute"), allDetails.get(detailName).get("value"))
@@ -145,8 +145,8 @@ public class ApiSteps {
     }
 
     @Step("(API) Search '{searchText}'")
-    public static Map<String, Map<String,String>> search(String searchText) {
-        Map<String,String> searchQuery = new HashMap<String,String>(){{
+    public static Map<String, Map<String, String>> search(String searchText) {
+        Map<String, String> searchQuery = new HashMap<String, String>() {{
             put("q", searchText);
         }};
 
@@ -154,7 +154,7 @@ public class ApiSteps {
     }
 
     @Step("(API) Advanced search with params '{searchParams}'")
-    public static Map<String, Map<String,String>> advancedSearch(Map<String,String> searchParams) {
+    public static Map<String, Map<String, String>> advancedSearch(Map<String, String> searchParams) {
 
         return SearchResultsElements.getItems(getPage(SEARCH.getPath(), searchParams));
     }
